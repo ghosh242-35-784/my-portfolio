@@ -81,3 +81,118 @@ document.addEventListener("DOMContentLoaded", function() {
     // পেজ রিলোড হওয়ার ১ সেকেন্ড পর টাইপিং শুরু হবে
     if(textArray.length) setTimeout(type, 1000);
 });
+// ================= THEME TOGGLE (DARK/LIGHT MODE) ================= //
+// ================= THEME TOGGLE (DARK/LIGHT MODE) ================= //
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+if (themeToggleBtn) {
+    const themeIcon = themeToggleBtn.querySelector('i');
+
+    themeToggleBtn.addEventListener('click', () => {
+        // বডিতে 'light-mode' ক্লাস যুক্ত বা রিমুভ করবে
+        document.body.classList.toggle('light-mode');
+        
+        // থিম অনুযায়ী আইকন পরিবর্তন
+        if (document.body.classList.contains('light-mode')) {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        } else {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+    });
+}
+// ================= AI CHATBOT LOGIC (BULLETPROOF VERSION) ================= //
+const API_KEY = "AQ.Ab8RN6Le0NwfitvCIuqh5G-BGHPl-dwawCjHwYoDyMTHv1fcJQ"; 
+
+document.addEventListener("DOMContentLoaded", () => {
+    const chatToggleBtn = document.getElementById('chat-toggle-btn');
+    const chatWindow = document.getElementById('chat-window');
+    const closeChatBtn = document.getElementById('close-chat-btn');
+    const chatBody = document.getElementById('chat-body');
+    const chatInput = document.getElementById('chat-input');
+    const sendMsgBtn = document.getElementById('send-msg-btn');
+
+    if (!chatToggleBtn || !chatWindow) return;
+
+    // আপনার সম্পর্কে তথ্য
+    const myInfo = `
+    You are the personal AI assistant of Shoumik Ghosh. 
+    Shoumik is a Software Engineering student at Daffodil International University.
+    Skills: C, C++, JavaScript, Python, Arduino, ESP32, HTML/CSS.
+    Projects: GreenNode BD (IoT urban farming), Automated Irrigation System, AdmitWise, Smart IoT Dustbin.
+    Answer briefly, politely, and as his assistant.
+    `;
+
+    // Open/Close Chat
+    chatToggleBtn.addEventListener('click', () => {
+        chatWindow.classList.toggle('hidden');
+    });
+    
+    closeChatBtn.addEventListener('click', () => {
+        chatWindow.classList.add('hidden');
+    });
+
+    // Add Message
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.classList.add('message');
+        msgDiv.classList.add(sender === 'user' ? 'user-message' : 'ai-message');
+        msgDiv.innerText = text;
+        chatBody.appendChild(msgDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Fetch Reply from Gemini API
+    async function getAIReply(userText) {
+        addMessage("Thinking...", "ai");
+        const lastMsg = chatBody.lastElementChild;
+
+        // সবচেয়ে স্ট্যাবল মডেলটি ব্যবহার করা হলো
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+        
+        // ট্রিক: ইউজারের প্রশ্নের সাথেই আপনার তথ্যগুলো লুকিয়ে পাঠিয়ে দেওয়া হচ্ছে
+        const combinedPrompt = `[System Info: ${myInfo}]\n\nUser Question: ${userText}`;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ 
+                        role: "user",
+                        parts: [{ text: combinedPrompt }] 
+                    }]
+                })
+            });
+
+            const data = await response.json();
+            
+            if(data.error) {
+                lastMsg.innerText = "API Error: " + data.error.message;
+                return;
+            }
+
+            const replyText = data.candidates[0].content.parts[0].text;
+            lastMsg.innerText = replyText;
+        } catch (error) {
+            lastMsg.innerText = "Sorry, network issue! Try again later.";
+            console.error(error);
+        }
+    }
+
+    // Handle Send
+    function handleSend() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        
+        addMessage(text, 'user');
+        chatInput.value = '';
+        getAIReply(text);
+    }
+
+    sendMsgBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSend();
+    });
+});
