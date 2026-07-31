@@ -15,6 +15,7 @@
 <body>
 
     <!-- Navigation Bar -->
+    <!-- Navigation Bar -->
     <nav id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">Portfolio<span>.</span></a>
@@ -24,35 +25,44 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#news">News</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
-            <div class="hamburger" id="hamburger-btn">
-                <i class="fa-solid fa-bars"></i>
+            <!-- এই অংশটুকু যোগ করতে হবে (টগল বাটন + হ্যামবার্গার) -->
+            <div class="nav-controls" style="display: flex; align-items: center; gap: 20px;">
+                <button id="theme-toggle" style="background: none; border: none; color: var(--text-main); font-size: 1.2rem; cursor: pointer;">
+                    <i class="fa-solid fa-sun"></i>
+                </button>
+                
+                <div class="hamburger" id="hamburger-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
             </div>
         </div>
     </nav>
-
     <!-- Hero Section -->
     <section class="hero" id="home">
+        
         <div class="hero-content">
             <!-- Animated Hello Badge -->
             <div class="hello-badge">
                      <span class="wave-emoji">👋</span>
                      <span class="typewriter-text"></span><span class="cursor">|</span>
             </div>
-            <h1>Software Engineer & <br><span>IoT Innovator</span></h1>
+            <h1>Software Engineer <br>& <br><span>IoT Innovator</span></h1>
             <p>I am a passionate Software Engineering student with a strong focus on IoT, Embedded Systems, and Robotics. I love exploring new technologies, building automation systems, and solving real-world problems through code and hardware.</p>
             <div class="btn-group">
                 <a href="#projects" class="btn btn-primary">View Projects</a>
                 <a href="#contact" class="btn btn-outline">Contact Me</a>
             </div>
         </div>
-        
-        <!-- Profile Image Section -->
-        <div class="hero-image">
-            <img src="profile.jpg" alt="My Profile Picture">
+
+        <!-- ডানদিকের গোল ছবির বক্স -->
+        <div class="hero-image-box">
+            <img src="profile.jpg" alt="Shoumik Ghosh">
         </div>
+
     </section>
 
     <!-- About Section -->
@@ -230,6 +240,66 @@
         </div>
     </section>
 
+    <!-- News Section -->
+    <section id="news">
+        <h2 class="section-title">News</h2>
+        <p class="news-subtitle">Updates, milestones, and recognitions in reverse chronological order.</p>
+        <div class="news-list">
+
+            <div class="news-item">
+                <span class="news-date">Jul 2026</span>
+                <div class="news-content">
+                    <div class="news-tags">
+                        <span class="news-badge">NEW</span>
+                        <span class="news-type type-project">PROJECT</span>
+                    </div>
+                    <p class="news-text">Started building <strong>GreenNode BD</strong>, an IoT-based smart urban farming concept for automated irrigation and environment monitoring.</p>
+                    <div class="news-links">
+                        <a href="#projects" class="news-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <span class="news-date">Jun 2026</span>
+                <div class="news-content">
+                    <div class="news-tags">
+                        <span class="news-badge">NEW</span>
+                        <span class="news-type type-project">PROJECT</span>
+                    </div>
+                    <p class="news-text">Completed the <strong>Smart IoT Based Dustbin</strong> prototype using ultrasonic sensors for motion-based lid control and fill-level alerts.</p>
+                    <div class="news-links">
+                        <a href="#projects" class="news-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <span class="news-date">May 2026</span>
+                <div class="news-content">
+                    <div class="news-tags">
+                        <span class="news-type type-work">FREELANCE</span>
+                    </div>
+                    <p class="news-text">Took on new freelance web design clients, delivering responsive HTML/CSS/JS portfolio and business sites.</p>
+                    <div class="news-links">
+                        <a href="#experience" class="news-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="news-item">
+                <span class="news-date">Apr 2026</span>
+                <div class="news-content">
+                    <div class="news-tags">
+                        <span class="news-type type-academic">ACADEMIC</span>
+                    </div>
+                    <p class="news-text">Advanced coursework at <strong>Daffodil International University</strong>, deepening focus on embedded systems and robotics.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact">
         <h2 class="section-title">Get In Touch</h2>
@@ -280,6 +350,7 @@
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#experience">Experience</a></li>
+                    <li><a href="#news">News</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -299,6 +370,36 @@
             <p class="footer-credit">Designed & Built with <i class="fa-solid fa-heart" style="color: #ef4444;"></i> by Shoumik</p>
         </div>
     </footer>
+
+    <!-- ================= AI CHATBOT WIDGET ================= -->
+    <div class="chat-widget-container">
+        <!-- Chat Button -->
+        <button id="chat-toggle-btn" class="chat-toggle-btn">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chat-window" class="chat-window hidden">
+            <div class="chat-header">
+                <div class="header-info">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Shoumik's AI Assistant</span>
+                </div>
+                <button id="close-chat-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="chat-body" id="chat-body">
+                <div class="message ai-message">
+                    Hello! I am Shoumik's AI Assistant. You can ask me anything about his skills, projects, or experience! 👋
+                </div>
+            </div>
+            
+            <div class="chat-footer">
+                <input type="text" id="chat-input" placeholder="Ask me something..." autocomplete="off">
+                <button id="send-msg-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
     <!-- Custom JS File Link -->
     <script src="script.js"></script>
 </body>
